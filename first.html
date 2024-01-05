@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-container welcome-closed">
+        <div class="form-welcome">
+            <p class="welcome-name"></p>
+            <button id='welcome-button'>Close</button>
+        </div>
+        <form id="form">
+            <label for="name">Username:
+                <input type="text" id="name" name="name">
+            </label>
+            <label for="name">Email Address:
+                <input type="email" id="email" name="email">
+            </label>
+            <button class="form-button">
+                Submit
+            </button>
+        </form>
+    </div>
+    
+<script>
+    const form = document.getElementById("form");
+    const formContainer = document.getElementsByClassName("form-container")[0];
+    const formButton = document.getElementsByClassName("form-button")[0];
+    const welcomeButton = document.getElementById("welcome-button");
+    const welcomeName = document.getElementsByClassName("welcome-name")[0];
+
+    formButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        let newForm = new FormData(form);
+        
+        let submittedValues  = {
+            name: newForm.get("name"),
+            email: newForm.get("email")
+        }
+        welcomeName.textContent = `Welcome ${submittedValues.name}!`;
+        formContainer.classList.remove("welcome-closed");
+        formContainer.classList.add("welcome-open");
+    })
+
+    welcomeButton.addEventListener("click", () => {
+        formContainer.classList.remove("welcome-open");
+        formContainer.classList.add("welcome-closed");
+    })
+
+</script>
+</body>
+<style>
+    body {
+        margin: 0;
+    }
+
+    .form-container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    form {
+        border: 2px solid black;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+
+    .welcome-name {
+        font-size: 2rem;
+    }
+
+    .welcome-open {
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .welcome-closed .form-welcome {
+        display: none;
+    }
+
+    .welcome-open .form-welcome {
+        display: flex;
+        position: absolute;
+        width: 500px;
+        height: 300px;
+        border: 2px solid black;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+        background-color: green;
+    }
+</style>
+</html>
